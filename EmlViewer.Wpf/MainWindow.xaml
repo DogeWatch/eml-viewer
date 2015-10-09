@@ -1,0 +1,27 @@
+﻿<Window x:Class="EmlViewer.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmlViewer.Wpf"
+        mc:Ignorable="d"
+        Title=".eml Viewer" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ListView Grid.Row="0" x:Name="lvMessages" SelectedItem="{Binding Path=SelectedMessage, Mode=TwoWay}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Sender" DisplayMemberBinding="{Binding Path=Sender}" />
+                    <GridViewColumn Header="Subject" DisplayMemberBinding="{Binding Path=Subject}" />
+                    <GridViewColumn Header="Sent" DisplayMemberBinding="{Binding Path=Sent, StringFormat=r}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+        <WebBrowser Grid.Row="1" local:WebBrowserUtility.Html="{Binding ElementName=lvMessages, Path=SelectedItem.Html}"/>
+    </Grid>
+</Window>
